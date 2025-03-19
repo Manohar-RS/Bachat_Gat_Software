@@ -1,0 +1,24 @@
+
+# 1). Sign Up Table :--->
+		create table user (id int AUTO_INCREMENT primary key, username varchar(30) unique,email  varchar(30) unique  ,password varchar(30) unique);
+
+# 2). Bachat Gat Table :--->       
+		create table bachatgat ( GroupID int AUTO_INCREMENT primary key,GroupName varchar(50),Address varchar(70), GroupChairman varchar(50),GroupSecretary varchar(50));
+
+# 3). Member Table :--->
+		create table member (MemberID int AUTO_INCREMENT primary key, GroupID int , MemberName varchar(50) , MemberPosition varchar(30) , MobileNumber varchar(15), AadharNumber varchar(12) unique, MAddress varchar(70), foreign key (GroupID) references bachatgat(GroupID) on delete cascade );
+
+# 4). Bank Table :--->		
+		create table bank ( BankID int AUTO_INCREMENT primary key, BankName varchar(30), BAddress varchar(70));
+	
+# 5). Loan Table :--->
+		create table loan (loanID int AUTO_INCREMENT primary key, MemberID int , MemberName varchar(50) , BankLoan double, BankLoanDate date , BankLoanDuration varchar(10), InternalLoan double, InternalLInterest varchar(10), foreign key (MemberID) references member(MemberID) on delete cascade);
+			
+# 6). Repayment Table :--->
+		create table installment ( RepaymentID int auto_increment primary key, MemberID int , LoanID int , MemberName varchar(50), RepaymentDate date , BankAmount double , InternalAmount double, InternalInterest double, SavingInstallment double , foreign key (MemberID) references member(MemberID) on delete cascade, foreign key (LoanID) references loan(LoanID) on delete cascade );
+	
+# 7). Meeting Table :--->
+		create table meeting ( MeetingID int AUTO_INCREMENT primary key, GroupID int , MeetingDate date , MeetingLocation varchar(70) , MeetingAgenda varchar(50) , foreign key (GroupID) references bachatgat(GroupID) on delete cascade );
+	
+# 8). Bank Loan :--->					
+		create table bloan ( BloanID int AUTO_INCREMENT primary key,BankID int,BankName varchar(30),ApprovedBankLoan varchar(10),LoanRepaymentPeriod varchar(10),DateOfLoanReceipt date,foreign key (BankID) references bank(BankID) on delete cascade);
